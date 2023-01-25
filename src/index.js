@@ -1,13 +1,22 @@
-import React from 'react';
+import React, {createContext} from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import UserStore from "./store/UserStore";
+import GlobalStore from "./store/GlobalStore";
+
+export const Context = createContext(null)
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <Context.Provider value={{
+        user: new UserStore(),
+        global: new GlobalStore()
+    }}>
+        <App />
+    </Context.Provider>
   </React.StrictMode>
 );
 
