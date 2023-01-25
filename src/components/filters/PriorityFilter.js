@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Context} from "../../index";
 import {ListGroup} from "react-bootstrap";
 import {observer} from "mobx-react-lite";
@@ -6,6 +6,10 @@ import {observer} from "mobx-react-lite";
 const PriorityFilter = observer((props) => {
     const {global} = useContext(Context)
     const [activePriorities, setActivePriorities] = useState([])
+
+    useEffect(() => {
+        props.toChild(activePriorities)
+    }, [activePriorities])
 
     const checkContains = (val) => {
         return activePriorities.some(item => val === item)

@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {ListGroup} from "react-bootstrap";
 import {observer} from "mobx-react-lite";
 import {Context} from "../../index";
@@ -6,6 +6,11 @@ import {Context} from "../../index";
 const TagFilter = observer((props) => {
     const {global} = useContext(Context)
     const [activeTags, setActiveTags] = useState([])
+
+    useEffect(() => {
+        props.toChild(activeTags)
+    }, [activeTags])
+
     const checkContains = (val) => {
         return activeTags.some(item => val === item)
     }
@@ -25,11 +30,9 @@ const TagFilter = observer((props) => {
     const updateState = (e) => {
         if(checkContains(e.target.textContent) === false){
             addActiveTags(e.target.textContent)
-            props.toChild(activeTags)
         }
         if(checkContains(e.target.textContent) === true){
             removeActiveTags(e.target.textContent)
-            props.toChild(activeTags)
         }
     }
 

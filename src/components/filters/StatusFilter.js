@@ -1,10 +1,15 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {ListGroup} from "react-bootstrap";
 import {Context} from "../../index";
 
 const StatusFilter = (props) => {
     const {global} = useContext(Context)
     const [activeStatuses, setActiveStatuses] = useState([])
+
+    useEffect(() => {
+        props.toChild(activeStatuses)
+    }, [activeStatuses])
+
     const checkContains = (val) => {
         return activeStatuses.some(item => val === item)
     }
